@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TDD-ROOM</string>
+    <string name="error_image_internal_storage">Couldn\'t retrieve from cache</string>
+    <string name="error_not_found">Image not found</string>
+    <string name="error_image_download">Couldn\'t download image</string>
+    <string name="tab_download">Download</string>
+    <string name="tab_my_images">My library</string>
+    <string name="send_to">Send to</string>
 </resources>
