@@ -29,12 +29,12 @@ jobs:
           command: ./gradlew check
       - run:
           name: Run Jacoco test reports
-          command: ./gradlew jacocoTestReport
+          command: ./gradlew jacocoTestReport # Research Firebase Test Lab for running instrumented tests with ./gradlew connectedAndroidTest jacocoTestReport
       - run:
           name: Upload test reports
           command: |
             bash <(curl -s https://codecov.io/bash)
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

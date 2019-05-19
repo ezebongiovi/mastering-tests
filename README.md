@@ -1,1 +1,1 @@
-[![CircleCI](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master.svg?style=svg)](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master) [![codecov](https://codecov.io/gh/ezebongiovi/tdd-room/branch/master/graph/badge.svg?token=uSZ7b8LGWJ)](https://codecov.io/gh/ezebongiovi/tdd-room)
+[![CircleCI](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master.svg?style=svg)](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master)
