@@ -10,6 +10,8 @@ import com.edipasquale.tdd_room.database.ImageDao
 import com.edipasquale.tdd_room.database.ImageDatabase
 import com.edipasquale.tdd_room.dto.Either
 import com.edipasquale.tdd_room.dto.Image
+import com.edipasquale.tdd_room.model.ERROR_NOT_FOUND
+import com.edipasquale.tdd_room.model.ImageModel
 import com.edipasquale.tdd_room.observer.OneTimeObserver
 import com.edipasquale.tdd_room.source.impl.LocalImageSource
 import com.edipasquale.tdd_room.util.MediaStoreUtil
@@ -53,6 +55,8 @@ class LocalImageSourceTest {
     fun testLocalError() {
         source.fetchImage("error").observeOnce { response ->
             assertTrue(response is Either.Error)
+
+            assertTrue((response as Either.Error).error == ERROR_NOT_FOUND)
         }
     }
 

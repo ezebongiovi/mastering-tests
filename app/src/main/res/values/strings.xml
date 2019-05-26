@@ -6,4 +6,6 @@
     <string name="tab_download">Download</string>
     <string name="tab_my_images">My library</string>
     <string name="send_to">Send to</string>
+    <string name="hint_search_url">Download by URL</string>
+    <string name="hint_search_library">Filter by ID</string>
 </resources>

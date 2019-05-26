@@ -30,10 +30,13 @@ class ImageDatabaseTest {
     fun testInsert() {
         val image = Image("insert")
 
+        // Check the image doesn't exist on database
         assertNull(database.getImageDao().getImage(image.url))
 
+        // Insert image on database
         database.getImageDao().insertImage(image)
 
+        // Check image exists on database
         assertEquals(database.getImageDao().getImage("insert"), image)
     }
 

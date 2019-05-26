@@ -17,5 +17,7 @@ class RoomApplication : Application() {
             .build()
     }
 
+    fun getDatabaseName() = "database_images"
+
     fun getRoomComponent() = roomComponent
 }

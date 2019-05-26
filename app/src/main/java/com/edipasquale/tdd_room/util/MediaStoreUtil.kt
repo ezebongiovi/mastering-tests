@@ -50,7 +50,7 @@ class MediaStoreUtil private constructor() {
         fun getSharableImage(context: Context, image: Image): Uri {
             val file = getImageFile(context, image)
             return FileProvider.getUriForFile(
-                context, "com.edipasquale.room.fileprovider",
+                context, "com.edipasquale.tdd_room.fileprovider",
                 file
             )
         }
