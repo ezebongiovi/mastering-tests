@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
-import com.edipasquale.tdd_room.view.adapter.MainPageAdapter
 import com.edipasquale.tdd_room.R
+import com.edipasquale.tdd_room.view.adapter.MainPageAdapter
 import com.edipasquale.tdd_room.view.fragment.DownloadFragment
+import com.edipasquale.tdd_room.view.fragment.IdlingResource
 import com.edipasquale.tdd_room.view.fragment.MyLibraryFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -118,6 +120,28 @@ class MainActivity : AppCompatActivity() {
             })
 
         return true
+    }
+
+    // Returns whether any of the fragments is idling or not
+    fun isIdling(): Boolean {
+        for (index in 0 until mPageAdapter.count) {
+            val element = mPageAdapter.getItem(index)
+
+            if (element is IdlingResource && !element.isIdling())
+                return false
+        }
+
+        return true
+    }
+
+    // Observes changes on idling sources value
+    fun observeIdling(observer: Observer) {
+        for (index in 0 until mPageAdapter.count) {
+            val element = mPageAdapter.getItem(index)
+
+            if (element is IdlingResource)
+                element.observeIdling(observer)
+        }
     }
 
     private fun getPages(): List<MainPageAdapter.Page> = listOf(

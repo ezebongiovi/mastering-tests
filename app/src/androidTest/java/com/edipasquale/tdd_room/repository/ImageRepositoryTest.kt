@@ -75,11 +75,6 @@ class ImageRepositoryTest {
         }
     }
 
-    @After
-    fun shutDown() {
-        database.close()
-    }
-
     private fun <T> LiveData<T>.observeOnce(onChangeHandler: (T) -> Unit) {
         val observer = OneTimeObserver(handler = onChangeHandler)
         observe(observer, observer)

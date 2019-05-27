@@ -7,22 +7,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.edipasquale.tdd_room.view.adapter.MainPageAdapter
 import com.edipasquale.tdd_room.R
 import com.edipasquale.tdd_room.RoomApplication
 import com.edipasquale.tdd_room.databinding.FragmentDownloadBinding
 import com.edipasquale.tdd_room.factory.ImageViewModelFactory
 import com.edipasquale.tdd_room.model.ImageModel
 import com.edipasquale.tdd_room.repository.ImageRepository
+import com.edipasquale.tdd_room.view.adapter.MainPageAdapter
 import com.edipasquale.tdd_room.viewmodel.ImageViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_download.*
 import javax.inject.Inject
 
-class DownloadFragment : Fragment(), MainPageAdapter.SearchListener {
+class DownloadFragment : IdlerFragment(), MainPageAdapter.SearchListener {
 
     @Inject
     lateinit var repository: ImageRepository
@@ -49,11 +48,13 @@ class DownloadFragment : Fragment(), MainPageAdapter.SearchListener {
             .get(ImageViewModel::class.java)
 
         mViewModel.model.observe(this, Observer { model ->
+            setIdling(true)
             progressBar.hide()
             mBinding.model = model
         })
 
         mViewModel.error.observe(this, Observer { errorModel ->
+            setIdling(true)
             progressBar.hide()
             Snackbar.make(
                 rootView,
@@ -64,7 +65,13 @@ class DownloadFragment : Fragment(), MainPageAdapter.SearchListener {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        setIdling(true)
+    }
+
     override fun onSearch(query: String) {
+        setIdling(false)
         progressBar.show()
         mViewModel.downloadImage(query)
     }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_my_library.view.*
 import javax.inject.Inject
 
 
-class MyLibraryFragment : Fragment(), MainPageAdapter.SearchListener,
+class MyLibraryFragment : IdlerFragment(), MainPageAdapter.SearchListener,
     LibraryListAdapter.ImageActionListener {
 
     @Inject
@@ -38,6 +37,7 @@ class MyLibraryFragment : Fragment(), MainPageAdapter.SearchListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setIdling(true)
 
         (context!!.applicationContext as RoomApplication).getRoomComponent().inject(this)
 
@@ -47,13 +47,25 @@ class MyLibraryFragment : Fragment(), MainPageAdapter.SearchListener,
 
         mViewModel.libraryModel.observe(this, Observer { model ->
             mAdapter.submitList(model.pictures)
+            setIdling(true)
         })
     }
 
     override fun onResume() {
         super.onResume()
 
+        setIdling(false)
         mViewModel.getLibrary(null)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        setIdling(true)
+    }
+
+    override fun onDestroy() {
+        setIdling(true)
+        super.onDestroy()
     }
 
     override fun onCreateView(
