@@ -15,6 +15,10 @@ This is a personal project built for practicing TDD skills in real world scenari
     * For instrumented tests
 * Mockito
     * For mocking during instrumented tests
+* Dagger
+    * For dependency injection
+* DataBinding
+    * For driving the UI from a model
 
 
 ## The tests
