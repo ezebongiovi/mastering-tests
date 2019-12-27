@@ -21,7 +21,7 @@ This is a personal project built for practicing TDD skills in real world scenari
 
 I'm a little bit disappointed on this, I faced some unexpected scenarios.
 
-* Room tests need to run on Android devices, it means, there're no Unit tests on this project. The whole database has been tested using instrumented tests and we depend on an Android device.
+* Room tests need to run on Android devices, it means, all database tests depend on an Android device. Because of that the whole database has been tested using instrumented tests.
 
 * Tried to add coverage reports, in the process I realized Circle CI doesn't support virtualization. And those tools which provide us with  android emulators during continuous integration are expensive. So this project has no coverage report because of that.
 
