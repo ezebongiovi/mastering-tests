@@ -32,13 +32,13 @@ I'm a little bit disappointed on this, I faced some unexpected scenarios.
 ## The app
 
 ### Download images by URL
-<img src="https://drive.google.com/uc?export=download&id=1FudSjH00EaXafmJoPsDD3wQneNtukiUN"/>
+<img width=300 height=550 src="https://drive.google.com/uc?export=download&id=1FudSjH00EaXafmJoPsDD3wQneNtukiUN"/>
 
 ### Share and Delete downloaded images
-<img src="https://drive.google.com/uc?export=download&id=1ygRYcWOsnuaSNUTxlsm5EpSfz3nEAiqu"/>
+<img width=300 height=550 src="https://drive.google.com/uc?export=download&id=1ygRYcWOsnuaSNUTxlsm5EpSfz3nEAiqu"/>
 
 ### Filter your downloaded images
-<img src="https://drive.google.com/file/d/1SnvHC0I6tDlrc3LxeTMBKTRPxwyFDU2H/view?usp=sharing"/>
+<img width=300 height=550 src="https://drive.google.com/uc?export=download&id=1SnvHC0I6tDlrc3LxeTMBKTRPxwyFDU2H"/>
 
 
 ### TODO
