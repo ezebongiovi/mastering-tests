@@ -1,1 +1,45 @@
-[![CircleCI](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master.svg?style=svg)](https://circleci.com/gh/ezebongiovi/tdd-room/tree/master)
+[![CircleCI](https://circleci.com/gh/ezebongiovi/mastering-tests.svg?style=svg)](https://circleci.com/gh/ezebongiovi/mastering-tests)
+
+## Description
+
+This is a personal project built for practicing TDD skills in real world scenarios.
+
+## Used techs
+* Room
+    * For offline support
+* Kotlin
+    * Because it's cute
+* Espresso
+    * For UI testing
+* JUnit
+    * For instrumented tests
+* Mockito
+    * For mocking during instrumented tests
+
+
+## The tests
+
+I'm a little bit disappointed on this, I faced some unexpected scenarios.
+
+* Room tests need to run on Android devices, it means, there're no Unit tests on this project. The whole database has been tested using instrumented tests and we depend on an Android device.
+
+* Tried to add coverage reports, in the process I realized Circle CI doesn't support virtualization. And those tools which provide us with  android emulators during continuous integration are expensive. So this project has no coverage report because of that.
+
+<a href="https://support.circleci.com/hc/en-us/articles/360000028928-Testing-with-Android-emulator-on-CircleCI-2-0">Discussion</a>
+> Running the Android emulator is not currently supported on CircleCI 2.0, since it's not supported by the type of virtualization CircleCI uses on Linux.
+
+
+## The app
+
+### Download images by URL
+<img src="https://drive.google.com/uc?export=download&id=1FudSjH00EaXafmJoPsDD3wQneNtukiUN"/>
+
+### Share and Delete downloaded images
+<img src="https://drive.google.com/uc?export=download&id=1ygRYcWOsnuaSNUTxlsm5EpSfz3nEAiqu"/>
+
+### Filter your downloaded images
+<img src="https://drive.google.com/file/d/1SnvHC0I6tDlrc3LxeTMBKTRPxwyFDU2H/view?usp=sharing"/>
+
+
+### TODO
+Research about alternative CI tools like Jenkins for adding coverage reports on instrumented tests
