@@ -8,12 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import com.edipasquale.tdd_room.dto.Either
 import com.edipasquale.tdd_room.dto.Image
 import com.edipasquale.tdd_room.model.ERROR_DOWNLOADING_IMAGE
-import com.edipasquale.tdd_room.source.ImageSource
+import com.edipasquale.tdd_room.source.NetworkImageSource
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.net.URL
 
-open class NetworkImageSource : ImageSource {
+open class AsyncTaskImageSource : NetworkImageSource {
 
     override fun fetchImage(url: String): LiveData<Either<Image, Int>> {
         val liveData = MutableLiveData<Either<Image, Int>>()
