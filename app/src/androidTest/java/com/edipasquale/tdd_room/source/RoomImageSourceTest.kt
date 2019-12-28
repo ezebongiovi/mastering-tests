@@ -11,10 +11,10 @@ import com.edipasquale.tdd_room.database.ImageDatabase
 import com.edipasquale.tdd_room.dto.Either
 import com.edipasquale.tdd_room.dto.Image
 import com.edipasquale.tdd_room.model.ERROR_NOT_FOUND
-import com.edipasquale.tdd_room.model.ImageModel
 import com.edipasquale.tdd_room.observer.OneTimeObserver
-import com.edipasquale.tdd_room.source.impl.LocalImageSource
+import com.edipasquale.tdd_room.source.impl.RoomImageSource
 import com.edipasquale.tdd_room.util.MediaStoreUtil
+import junit.framework.AssertionFailedError
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -22,13 +22,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class LocalImageSourceTest {
+class RoomImageSourceTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var dao: ImageDao
-    private lateinit var source: LocalImageSource
+    private lateinit var source: RoomImageSource
 
     @Before
     fun setup() {
@@ -37,7 +37,7 @@ class LocalImageSourceTest {
             ImageDatabase::class.java
         ).build().getImageDao()
 
-        source = LocalImageSource(dao, ApplicationProvider.getApplicationContext())
+        source = RoomImageSource(dao, ApplicationProvider.getApplicationContext())
     }
 
     @Test
@@ -67,13 +67,15 @@ class LocalImageSourceTest {
         }
 
         // Tells the source to save the image
-        source.saveImage(image).observeOnce { model ->
+        source.saveImage(image).observeOnce { saveResult ->
 
-            // Checks the model contains an image
-            assertNotNull(model.image)
+            when (saveResult) {
+                is Either.Data -> assertNotNull(saveResult.data)
+                is Either.Error -> throw AssertionFailedError("RoomImageSource couldn't save the image")
+            }
 
             // Checks the source has saved the image
-            source.fetchImage(model.image!!.url).observeOnce { result ->
+            source.fetchImage(saveResult.data.url).observeOnce { result ->
 
                 // Checks the result is not an error
                 assertFalse(result is Either.Error)

@@ -8,8 +8,8 @@ import com.edipasquale.tdd_room.dto.Image
 import com.edipasquale.tdd_room.model.ImageLibraryErrorModel
 import com.edipasquale.tdd_room.model.ImageLibraryModel
 import com.edipasquale.tdd_room.model.ImageModel
-import com.edipasquale.tdd_room.source.impl.LocalImageSource
-import com.edipasquale.tdd_room.source.impl.NetworkImageSource
+import com.edipasquale.tdd_room.source.LocalImageSource
+import com.edipasquale.tdd_room.source.NetworkImageSource
 
 open class ImageRepository(
     private val localSource: LocalImageSource,
@@ -34,7 +34,12 @@ open class ImageRepository(
 
                 when (networkResponse) {
                     is Either.Data -> {
-                        localSource.saveImage(networkResponse.data)
+                        Transformations.map(localSource.saveImage(networkResponse.data)) { imageSavingResult ->
+                            when (imageSavingResult) {
+                                is Either.Data -> ImageModel(image = imageSavingResult.data)
+                                is Either.Error -> ImageModel(error = imageSavingResult.error)
+                            }
+                        }
                     }
 
                     is Either.Error -> {

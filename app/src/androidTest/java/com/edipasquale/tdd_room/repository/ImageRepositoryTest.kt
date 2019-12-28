@@ -8,9 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.edipasquale.tdd_room.database.ImageDatabase
 import com.edipasquale.tdd_room.dto.Image
 import com.edipasquale.tdd_room.observer.OneTimeObserver
-import com.edipasquale.tdd_room.source.impl.LocalImageSource
-import com.edipasquale.tdd_room.source.impl.NetworkImageSource
-import org.junit.After
+import com.edipasquale.tdd_room.source.impl.RoomImageSource
+import com.edipasquale.tdd_room.source.impl.AsyncTaskImageSource
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,8 +30,8 @@ class ImageRepositoryTest {
 
     private lateinit var database: ImageDatabase
     private lateinit var repository: ImageRepository
-    private lateinit var localSource: LocalImageSource
-    private lateinit var networkSource: NetworkImageSource
+    private lateinit var localSource: RoomImageSource
+    private lateinit var networkSource: AsyncTaskImageSource
 
     @Before
     fun setup() {
@@ -44,12 +43,12 @@ class ImageRepositoryTest {
         ).build()
 
         localSource = spy(
-            LocalImageSource(
+            RoomImageSource(
                 database.getImageDao(),
                 ApplicationProvider.getApplicationContext()
             )
         )
-        networkSource = spy(NetworkImageSource())
+        networkSource = spy(AsyncTaskImageSource())
 
         repository = ImageRepository(localSource, networkSource)
     }

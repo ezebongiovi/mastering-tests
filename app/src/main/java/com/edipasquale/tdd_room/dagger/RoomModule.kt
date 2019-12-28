@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.edipasquale.tdd_room.RoomApplication
 import com.edipasquale.tdd_room.database.ImageDatabase
 import com.edipasquale.tdd_room.repository.ImageRepository
-import com.edipasquale.tdd_room.source.impl.LocalImageSource
-import com.edipasquale.tdd_room.source.impl.NetworkImageSource
+import com.edipasquale.tdd_room.source.impl.RoomImageSource
+import com.edipasquale.tdd_room.source.impl.AsyncTaskImageSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,13 +17,13 @@ class RoomModule(private val app: RoomApplication) {
 
     @Provides
     fun provideLocalSource(database: ImageDatabase, context: Context) =
-        LocalImageSource(database.getImageDao(), context)
+        RoomImageSource(database.getImageDao(), context)
 
     @Provides
-    fun provideNetworkSource() = NetworkImageSource()
+    fun provideNetworkSource() = AsyncTaskImageSource()
 
     @Provides
-    fun provideImageRepository(localSource: LocalImageSource, source: NetworkImageSource) =
+    fun provideImageRepository(localSource: RoomImageSource, source: AsyncTaskImageSource) =
         ImageRepository(localSource, source)
 
     @Provides

@@ -8,14 +8,14 @@ import com.edipasquale.tdd_room.dto.Either
 import com.edipasquale.tdd_room.dto.Image
 import com.edipasquale.tdd_room.model.ERROR_INTERNAL_STORAGE
 import com.edipasquale.tdd_room.model.ERROR_NOT_FOUND
-import com.edipasquale.tdd_room.model.ImageModel
-import com.edipasquale.tdd_room.source.ImageSource
+import com.edipasquale.tdd_room.source.LocalImageSource
 import com.edipasquale.tdd_room.util.MediaStoreUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-open class LocalImageSource(private val imageDao: ImageDao, private val context: Context) : ImageSource {
+open class RoomImageSource(private val imageDao: ImageDao, private val context: Context) :
+    LocalImageSource {
 
     override fun fetchImage(url: String): LiveData<Either<Image, Int>> {
         val liveData = MutableLiveData<Either<Image, Int>>()
@@ -27,8 +27,8 @@ open class LocalImageSource(private val imageDao: ImageDao, private val context:
         return liveData
     }
 
-    fun saveImage(image: Image): LiveData<ImageModel> {
-        val liveData = MutableLiveData<ImageModel>()
+    override fun saveImage(image: Image): LiveData<Either<Image, Int>> {
+        val liveData = MutableLiveData<Either<Image, Int>>()
 
         GlobalScope.launch {
             // Saves on database and gets the ID
@@ -53,9 +53,9 @@ open class LocalImageSource(private val imageDao: ImageDao, private val context:
                 imageDao.updateImage(image)
 
                 // Returns the updated image
-                liveData.postValue(ImageModel(updatedImage))
+                liveData.postValue(Either.Data(updatedImage))
             } else {
-                liveData.postValue(ImageModel(error = ERROR_INTERNAL_STORAGE))
+                liveData.postValue(Either.Error(ERROR_INTERNAL_STORAGE))
             }
         }
 
@@ -73,7 +73,7 @@ open class LocalImageSource(private val imageDao: ImageDao, private val context:
         }
     }
 
-    fun getLibrary(query: String?): LiveData<Either<List<Image>, Int>> {
+    override fun getLibrary(query: String?): LiveData<Either<List<Image>, Int>> {
         val liveData = MutableLiveData<Either<List<Image>, Int>>()
 
         GlobalScope.launch {
@@ -98,7 +98,7 @@ open class LocalImageSource(private val imageDao: ImageDao, private val context:
         return liveData
     }
 
-    fun deleteImage(image: Image): LiveData<Either<List<Image>, Int>> {
+    override fun deleteImage(image: Image): LiveData<Either<List<Image>, Int>> {
         val liveData = MutableLiveData<Either<List<Image>, Int>>()
 
         GlobalScope.launch {
