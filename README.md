@@ -48,5 +48,5 @@ I'm a little bit disappointed on this, I faced some unexpected scenarios.
 Research about alternative CI tools like Jenkins for adding coverage reports on instrumented tests
 
 ### Update
-On this repository I've solved the coverage report issue by using <a href="https://app.bitrise.io/referral/991edfc02003fd69
+On <a href="https://github.com/ezebongiovi/mastering-instrumented-tests">this repository</a> I've solved the coverage report issue by using <a href="https://app.bitrise.io/referral/991edfc02003fd69
 ">Bitrise</a>
