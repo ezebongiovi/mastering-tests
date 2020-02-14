@@ -27,11 +27,10 @@ I'm a little bit disappointed on this, I faced some unexpected scenarios.
 
 * Room tests need to run on Android devices, it means, all database tests depend on an Android device. Because of that the whole database has been tested using instrumented tests.
 
-* Tried to add coverage reports for instrumented and UI tests, in the process I realized Circle CI doesn't support virtualization. And those tools which provide us with  android emulators during continuous integration are expensive. So this project has no coverage report because of that.
+* Tried to add coverage reports for instrumented and UI tests, in the process I realized Circle CI doesn't support virtualization. And those tools which provide us with  android emulators during continuous integration are expensive. So this project has no coverage report because of that. 
 
 <a href="https://support.circleci.com/hc/en-us/articles/360000028928-Testing-with-Android-emulator-on-CircleCI-2-0">Discussion</a>
 > Running the Android emulator is not currently supported on CircleCI 2.0, since it's not supported by the type of virtualization CircleCI uses on Linux.
-
 
 ## The app
 
@@ -47,3 +46,7 @@ I'm a little bit disappointed on this, I faced some unexpected scenarios.
 
 ### TODO
 Research about alternative CI tools like Jenkins for adding coverage reports on instrumented tests
+
+### Update
+On this repository I've solved the coverage report issue by using <a href="https://app.bitrise.io/referral/991edfc02003fd69
+">Bitrise</a>
